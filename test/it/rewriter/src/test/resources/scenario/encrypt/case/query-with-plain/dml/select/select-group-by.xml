@@ -38,7 +38,8 @@
         <input sql="SELECT account_id, password, amount AS a, status AS s FROM t_account WHERE account_id = 1 AND password = 'aaa' AND password like 'aaa' AND amount = 1000 AND status = 'OK' group by amount desc" />
         <output sql="SELECT account_id, cipher_password AS password, cipher_amount AS a, status AS s FROM t_account WHERE account_id = 1 AND assisted_query_password = 'assisted_query_aaa' AND like_query_password like 'like_query_aaa' AND cipher_amount = 'encrypt_1000' AND status = 'OK' group by cipher_amount desc" />
     </rewrite-assertion>
-    
+
+    <!-- group by 仅支持明文查询 -->
     <rewrite-assertion id="select_with_groupby_plain_for_parameters_for_plain" db-types="MySQL">
         <input sql="SELECT account_id, password, amount AS a, status AS s FROM t_account_bak WHERE account_id = ? AND password = ? AND password like ? AND amount = ? AND status = ? group by amount desc" parameters="1, aaa, aaa, 1000, OK" />
         <output sql="SELECT account_id, plain_password AS password, plain_amount AS a, status AS s FROM t_account_bak WHERE account_id = ? AND plain_password = ? AND plain_password like ? AND plain_amount = ? AND status = ? group by plain_amount desc" parameters="1, aaa, aaa, 1000, OK" />

@@ -109,8 +109,13 @@
     </rewrite-assertion>
     
     <rewrite-assertion id="select_sub_query_with_order_by_for_plain" db-types="MySQL">
-        <input sql="SELECT COUNT(1) AS cnt FROM (SELECT a.amount FROM t_account a ORDER BY a.amount DESC ) AS tmp" />
-        <output sql="SELECT COUNT(1) AS cnt FROM (SELECT a.cipher_amount FROM t_account a ORDER BY a.cipher_amount DESC ) AS tmp" />
+        <input sql="SELECT COUNT(*) AS cnt FROM (SELECT a.amount FROM t_account_bak a ORDER BY a.amount DESC ) AS tmp" />
+        <output sql="SELECT COUNT(*) AS cnt FROM (SELECT a.plain_amount FROM t_account_bak a ORDER BY a.plain_amount DESC ) AS tmp" />
+    </rewrite-assertion>
+
+    <rewrite-assertion id="select_sub_query_pagination" db-types="MySQL">
+        <input sql="SELECT tmp.amount FROM (SELECT a.amount FROM t_account_bak a limit 10 offset 0) AS tmp" />
+        <output sql="SELECT tmp.plain_amount AS amount FROM (SELECT a.plain_amount FROM t_account_bak a limit 10 offset 0) AS tmp" />
     </rewrite-assertion>
 
     <rewrite-assertion id="select_shorthand_from_sub_query_with_simple_select" db-types="MySQL">

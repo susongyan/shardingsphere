@@ -31,6 +31,7 @@ rules:
           encryptorName: rewrite_normal_fixture
           assistedQueryEncryptorName: rewrite_assisted_query_fixture
           likeQueryEncryptorName: rewrite_like_query_fixture
+          queryWithCipherColumn: true
         password:
           cipherColumn: cipher_password
           assistedQueryColumn: assisted_query_password
@@ -38,12 +39,15 @@ rules:
           encryptorName: rewrite_normal_fixture
           assistedQueryEncryptorName: rewrite_assisted_query_fixture
           likeQueryEncryptorName: rewrite_like_query_fixture
+          queryWithCipherColumn: true
         amount:
           cipherColumn: cipher_amount
           encryptorName: rewrite_normal_fixture
+          queryWithCipherColumn: true
         amount_new:
           cipherColumn: amount_new_cipher
           encryptorName: rewrite_normal_fixture
+          queryWithCipherColumn: false
     t_account_bak:
       columns:
         certificate_number:
