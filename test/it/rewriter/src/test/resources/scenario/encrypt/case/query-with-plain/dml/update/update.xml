@@ -28,10 +28,10 @@
     </rewrite-assertion>
     
 <!--    TODO FIX ME-->
-<!--    <rewrite-assertion id="update_for_parameters" db-types="MySQL">-->
-<!--        <input sql="UPDATE t_account SET account_id = ?, certificate_number = ?, password = ?, amount = ?, status = ? WHERE account_id = ? AND certificate_number = ? AND password = ? AND password like ? AND amount = ? AND status = ?" parameters="1, 111X, aaa, 1000, OK, 1, 111X, aaa, aaa, 1000, OK" />-->
-<!--        <output sql="UPDATE t_account SET account_id = ?, cipher_certificate_number = ?, assisted_query_certificate_number = ?, like_query_certificate_number = ?, cipher_password = ?, assisted_query_password = ?, like_query_password = ?, cipher_amount = ?, status = ? WHERE account_id = ? AND assisted_query_certificate_number = ? AND assisted_query_password = ? AND like_query_password like ? AND cipher_amount = ? AND status = ?" parameters="1, encrypt_111X, assisted_query_111X, like_query_111X, encrypt_aaa, assisted_query_aaa, like_query_aaa, encrypt_1000, OK, 1, assisted_query_111X, assisted_query_aaa, like_query_aaa, encrypt_1000, OK" />-->
-<!--    </rewrite-assertion>-->
+    <rewrite-assertion id="update_for_parameters" db-types="MySQL">
+        <input sql="UPDATE t_account SET account_id = ?, certificate_number = ?, password = ?, amount = ?, status = ? WHERE account_id = ? AND certificate_number = ? AND password = ? AND password like ? AND amount = ? AND status = ?" parameters="1, 111X, aaa, 1000, OK, 1, 111X, aaa, aaa, 1000, OK" />
+        <output sql="UPDATE t_account SET account_id = ?, cipher_certificate_number = ?, assisted_query_certificate_number = ?, like_query_certificate_number = ?, cipher_password = ?, assisted_query_password = ?, like_query_password = ?, cipher_amount = ?, status = ? WHERE account_id = ? AND assisted_query_certificate_number = ? AND assisted_query_password = ? AND like_query_password like ? AND cipher_amount = ? AND status = ?" parameters="1, encrypt_111X, assisted_query_111X, like_query_111X, encrypt_aaa, assisted_query_aaa, like_query_aaa, encrypt_1000, OK, 1, assisted_query_111X, assisted_query_aaa, like_query_aaa, encrypt_1000, OK" />
+    </rewrite-assertion>
     
     <rewrite-assertion id="update_for_literals" db-types="MySQL">
         <input sql="UPDATE t_account SET account_id = 1, certificate_number = '111X', password = 'aaa', amount = 1000, status = 'OK' WHERE account_id = 1 AND certificate_number = '111X' AND password = 'aaa' AND password like 'aaa' AND amount = 1000 AND status = 'OK'" />
