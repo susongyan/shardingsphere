@@ -129,8 +129,11 @@ public final class TablesContext {
         Map<String, String> result = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         Map<String, Collection<String>> ownerColumnNames = getOwnerColumnNamesByColumnSegment(columns);
         result.putAll(findTableNameFromSQL(ownerColumnNames));
-        Collection<String> noOwnerColumnNames = getNoOwnerColumnNamesByColumnSegment(columns);
-        result.putAll(findTableNameFromMetaData(noOwnerColumnNames, schema));
+        
+        if (schema != null) {
+            Collection<String> noOwnerColumnNames = getNoOwnerColumnNamesByColumnSegment(columns);
+            result.putAll(findTableNameFromMetaData(noOwnerColumnNames, schema));
+        }
         result.putAll(findTableNameFromSubqueryByColumnSegment(columns, result));
         return result;
     }
@@ -150,7 +153,9 @@ public final class TablesContext {
         Map<String, Collection<String>> ownerColumnNames = getOwnerColumnNamesByColumnProjection(columns);
         result.putAll(findTableNameFromSQL(ownerColumnNames));
         Collection<String> noOwnerColumnNames = getNoOwnerColumnNamesByColumnProjection(columns);
-        result.putAll(findTableNameFromMetaData(noOwnerColumnNames, schema));
+        if (schema != null) {
+            result.putAll(findTableNameFromMetaData(noOwnerColumnNames, schema));
+        }
         result.putAll(findTableNameFromSubqueryByColumnProjection(columns, result));
         return result;
     }

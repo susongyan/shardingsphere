@@ -86,9 +86,10 @@ public final class ProjectionEngine {
      * @return projection
      */
     public Optional<Projection> createProjection(final TableSegment table, final ProjectionSegment projectionSegment) {
-        if (projectionSegment instanceof ShorthandProjectionSegment) {
-            return Optional.of(createProjection(table, (ShorthandProjectionSegment) projectionSegment));
-        }
+        // todo remove shorthand support
+        // if (projectionSegment instanceof ShorthandProjectionSegment) {
+        // return Optional.of(createProjection(table, (ShorthandProjectionSegment) projectionSegment));
+        // }
         if (projectionSegment instanceof ColumnProjectionSegment) {
             return Optional.of(createProjection((ColumnProjectionSegment) projectionSegment));
         }
@@ -118,6 +119,13 @@ public final class ProjectionEngine {
         return new SubqueryProjection(projectionSegment.getText(), projectionSegment.getAlias().orElse(null));
     }
     
+    /**
+     * select * 根据表元数据映射成列
+     *
+     * @param table
+     * @param projectionSegment
+     * @return
+     */
     private ShorthandProjection createProjection(final TableSegment table, final ShorthandProjectionSegment projectionSegment) {
         String owner = projectionSegment.getOwner().map(optional -> optional.getIdentifier().getValue()).orElse(null);
         Collection<Projection> projections = new LinkedHashSet<>();

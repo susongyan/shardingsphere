@@ -60,7 +60,7 @@ public final class GeneratedKeyContextEngine {
     }
     
     private Optional<String> findGenerateKeyColumn(final String tableName) {
-        if (!schema.containsTable(tableName)) {
+        if (schema == null || !schema.containsTable(tableName)) {
             return Optional.empty();
         }
         for (Entry<String, ShardingSphereColumn> entry : schema.getTable(tableName).getColumns().entrySet()) {
@@ -117,6 +117,7 @@ public final class GeneratedKeyContextEngine {
     }
     
     private int findGenerateKeyIndex(final List<String> insertColumnNames, final String generateKeyColumnName) {
+        // insertColumnNames
         return insertColumnNames.isEmpty() ? schema.getVisibleColumnNames(insertStatement.getTable().getTableName().getIdentifier().getValue()).indexOf(generateKeyColumnName)
                 : insertColumnNames.indexOf(generateKeyColumnName);
     }

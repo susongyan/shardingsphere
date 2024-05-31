@@ -121,8 +121,8 @@ public final class SQLStatementContextFactory {
     /**
      * Create SQL statement context.
      *
-     * @param metaData metadata
-     * @param sqlStatement SQL statement
+     * @param metaData            metadata
+     * @param sqlStatement        SQL statement
      * @param defaultDatabaseName default database name
      * @return SQL statement context
      */
@@ -133,9 +133,9 @@ public final class SQLStatementContextFactory {
     /**
      * Create SQL statement context.
      *
-     * @param metaData metadata
-     * @param params SQL parameters
-     * @param sqlStatement SQL statement
+     * @param metaData            metadata
+     * @param params              SQL parameters
+     * @param sqlStatement        SQL statement
      * @param defaultDatabaseName default database name
      * @return SQL statement context
      */
@@ -152,6 +152,28 @@ public final class SQLStatementContextFactory {
         }
         if (sqlStatement instanceof DALStatement) {
             return getDALStatementContext((DALStatement) sqlStatement);
+        }
+        return new CommonSQLStatementContext<>(sqlStatement);
+    }
+    
+    /**
+     * @param sqlStatement
+     * @param params
+     * @param defaultDatabaseName
+     * @return
+     */
+    public static SQLStatementContext<?> newInstance(final SQLStatement sqlStatement, final List<Object> params, final String defaultDatabaseName) {
+        if (sqlStatement instanceof DMLStatement) {
+            return getDMLStatementContext(null, params, (DMLStatement) sqlStatement, defaultDatabaseName);
+        }
+        if (sqlStatement instanceof DDLStatement) {
+            throw new UnsupportedSQLOperationException("DDL operation not supported");
+        }
+        if (sqlStatement instanceof DCLStatement) {
+            throw new UnsupportedSQLOperationException("DCL operation not supported");
+        }
+        if (sqlStatement instanceof DALStatement) {
+            throw new UnsupportedSQLOperationException("DCL operation not supported");
         }
         return new CommonSQLStatementContext<>(sqlStatement);
     }

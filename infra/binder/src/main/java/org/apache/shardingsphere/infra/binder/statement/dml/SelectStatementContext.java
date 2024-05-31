@@ -135,6 +135,9 @@ public final class SelectStatementContext extends CommonSQLStatementContext<Sele
             ShardingSpherePreconditions.checkState(tablesContext.getTables().isEmpty(), NoDatabaseSelectedException::new);
             return Collections.emptyMap();
         }
+        if (metaData == null) {
+            return new HashMap<>();
+        }
         ShardingSphereDatabase database = metaData.getDatabase(databaseName);
         ShardingSpherePreconditions.checkNotNull(database, () -> new UnknownDatabaseException(databaseName));
         return database.getSchemas();
